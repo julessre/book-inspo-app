@@ -1,14 +1,9 @@
+import crypto from 'node:crypto';
+import bcrypt from 'bcrypt';
 import { ExpoResponse } from 'expo-router/server';
 import { z } from 'zod';
+import { createSession } from '../../database/sessions';
 import { createUser, getUserByEmail } from '../../database/users';
-
-type User = {
-  id: number;
-  email: string;
-  passwordHash: string;
-  firstName: string;
-  lastName: string;
-};
 
 const signupSchema = z.object({
   email: z.string().email(),
@@ -41,7 +36,10 @@ export async function POST(request: Request) {
       { status: 403 },
     );
   }
+  // // 4. Hash the plain password from the user
+  // const passwordHash = await bcrypt.hash(result.data.passwordHash, 12);
 
+  // 5. Save the user information with the hashed password in the database
   const newUser = await createUser(
     result.data.email,
     result.data.passwordHash,
@@ -57,6 +55,38 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
+
+  // // 6. Create a token
+  // const token = crypto.randomBytes(100).toString('base64');
+
+  // // 7. Create the session record
+  // const session = await createSession(newUser.id, token);
+
+  // if (!session) {
+  //   return ExpoResponse.json(
+  //     { errors: [{ message: 'Error creating the new session' }] },
+  //     {
+  //       status: 401,
+  //     },
+  //   );
+  // }
+
+  // 8. Send the new cookie in the headers
+  // cookies().set({
+  //   name: 'sessionToken',
+  //   value: session.token,
+  //   httpOnly: true,
+  //   path: '/',
+  //   secure: process.env.NODE_ENV === 'production',
+  //   maxAge: 60 * 60 * 24, // Expires in 24 hours,
+  //   sameSite: 'lax',
+  // });
+
+  // cookies().set({
+  //   name: 'sessionToken',
+  //   value: session.token,
+  //   ...secureCookieOptions,
+  // });
 
   return ExpoResponse.json({
     user: newUser,

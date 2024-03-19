@@ -1,11 +1,11 @@
+import crypto from 'node:crypto';
+import bcrypt from 'bcrypt';
 import { ExpoResponse } from 'expo-router/server';
 import { z } from 'zod';
+import { createSession } from '../../database/sessions';
 import { getUserByEmail } from '../../database/users';
-
-type User = {
-  email: string;
-  passwordHash: string;
-};
+import { createSerializedRegisterSessionTokenCookie } from '../../util/cookies';
+import { createCsrfSecret } from '../../util/csrf';
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
   if (!result.success) {
     return ExpoResponse.json(
-      { errors: [{ message: 'test' }] },
+      { errors: [{ message: 'Login not successful' }] },
       {
         status: 400,
       },
@@ -39,9 +39,56 @@ export async function POST(request: Request) {
     );
   }
 
-  return ExpoResponse.json({
-    user: {
-      email: userWithPasswordHash.email,
+  // // 3. validate the password
+  // const isPasswordValid = await bcrypt.compare(
+  //   result.data.passwordHash,
+  //   userWithPasswordHash.passwordHash,
+  // ); // Boolean
+
+  // if (!isPasswordValid) {
+  //   // consider using the same output for user or password not valid
+  //   return ExpoResponse.json(
+  //     { errors: [{ message: 'password is not valid' }] },
+  //     { status: 401 },
+  //   );
+  // }
+
+  // // 4. create a session (in the next chapter)
+  // // - create the token
+  // const token = crypto.randomBytes(80).toString('base64');
+
+  // const csrfSecret = createCsrfSecret();
+
+  // // - create the session
+  // const session = await createSession(
+  //   token,
+  //   userWithPasswordHash.id,
+  //   csrfSecret,
+  // );
+
+  // if (!session) {
+  //   return ExpoResponse.json(
+  //     { errors: [{ message: 'session creation failed' }] },
+  //     { status: 500 },
+  //   );
+  // }
+
+  // const serializedCookie = createSerializedRegisterSessionTokenCookie(
+  //   session.token,
+  // );
+
+  // add the new header
+
+  return ExpoResponse.json(
+    {
+      user: {
+        email: userWithPasswordHash.email,
+      },
     },
-  });
+    // {
+    //   status: 200,
+    //   // - Attach the new cookie serialized to the header of the response
+    //   headers: { 'Set-Cookie': serializedCookie },
+    // },
+  );
 }
