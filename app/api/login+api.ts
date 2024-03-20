@@ -13,9 +13,9 @@ const loginSchema = z.object({
 
 export async function POST(request: Request) {
   const body = await request.json();
-  console.log('before z', body);
+  // console.log('before z', body);
   const result = loginSchema.safeParse(body);
-  console.log('after z', result);
+  // console.log('after z', result);
   const headers = new Headers();
 
   if (!result.success) {
@@ -68,16 +68,24 @@ export async function POST(request: Request) {
     );
   }
 
-  // add the new header
-  headers.set('Set-Cookie', `sessionToken=${token}`);
-  headers.append('Set-Cookie', `sessionToken=${token}`);
-  console.log('test in login api', headers);
+  const serializedCookie = createSerializedRegisterSessionTokenCookie(
+    session.token,
+  );
 
-  return ExpoResponse.json({
-    user: {
-      email: userWithPasswordHash.email,
-      id: userWithPasswordHash.id,
+  // add the new header
+  headers.set('Set-Cookie', 'a=1;');
+  console.log('Headers setting', headers);
+
+  return ExpoResponse.json(
+    {
+      user: {
+        email: userWithPasswordHash.email,
+      },
     },
-    headers,
-  });
+    {
+      headers: {
+        'Set-Cookie': serializedCookie,
+      },
+    },
+  );
 }

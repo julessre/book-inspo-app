@@ -94,19 +94,19 @@ export default function HomeLayout() {
           }}
         />
         {/* <Stack.Screen
-          name="userProfile"
-          component={UserProfile}
-          options={{
-            title: 'user profile',
+  name="userProfile"
+  component={UserProfile}
+  options={{
+    title: 'user profile',
 
-            headerBackTitleVisible: false,
-            headerShadowVisible: false,
-            contentStyle: {
-              borderTopColor: colors.primaryColor,
-              borderTopWidth: 3,
-            },
-          }}
-        /> */}
+    headerBackTitleVisible: false,
+    headerShadowVisible: false,
+    contentStyle: {
+      borderTopColor: colors.primaryColor,
+      borderTopWidth: 3,
+    },
+  }}
+/> */}
       </Stack.Navigator>
     </SafeAreaView>
   );

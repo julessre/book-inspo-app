@@ -42,6 +42,7 @@ export default function ProfileScreen({ navigation }) {
       <Image source={profilePic} />
       <Text>Firstname Lastname</Text>
 
+
     </View>
   );
 }
