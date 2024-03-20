@@ -7,8 +7,10 @@ import Login from './(auth)/login';
 import SignUp from './(auth)/signup';
 import TabNavigator from './(tabs)/_layout';
 import HomeScreen from './(tabs)/HomeScreen';
-import UserProfile from './(tabs)/profile/userProfile';
 import BookDetailsPage from './bookDetails/[id]';
+import UserProfile from './profile/userProfile';
+
+// import UserProfile from './profile/userProfile';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Stack = createNativeStackNavigator();
@@ -62,20 +64,6 @@ export default function HomeLayout() {
             },
           }}
         />
-        {/* <Stack.Screen
-          name="userProfile"
-          component={UserProfile}
-          options={{
-            title: 'user profile',
-
-            headerBackTitleVisible: false,
-            headerShadowVisible: false,
-            contentStyle: {
-              borderTopColor: colors.primaryColor,
-              borderTopWidth: 3,
-            },
-          }}
-        /> */}
 
         <Stack.Screen
           name="(auth)/signup"
@@ -105,6 +93,20 @@ export default function HomeLayout() {
             },
           }}
         />
+        {/* <Stack.Screen
+          name="userProfile"
+          component={UserProfile}
+          options={{
+            title: 'user profile',
+
+            headerBackTitleVisible: false,
+            headerShadowVisible: false,
+            contentStyle: {
+              borderTopColor: colors.primaryColor,
+              borderTopWidth: 3,
+            },
+          }}
+        /> */}
       </Stack.Navigator>
     </SafeAreaView>
   );

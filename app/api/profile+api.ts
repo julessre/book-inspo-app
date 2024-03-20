@@ -8,9 +8,9 @@ export async function GET(request: ExpoRequest) {
   // this is a protected Route Handler
   // 1. get the session token from the cookie
   // const cookieStore = cookies();
-  // const token = cookieStore.get('sessionToken');
-  // const headers = new Headers();
-  // console.log('test headers', headers);
+  const headers = new Headers();
+  // const token = headers.get('sessionToken');
+  console.log('test headers', headers);
   // console.log('hi test', headers.get('sessionToken'));
   // console.log('hi test', headers.get('set-cookie'));
 

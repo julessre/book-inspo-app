@@ -1,7 +1,7 @@
 // import React, { useEffect } from 'react';
-// import { Image, StyleSheet, View } from 'react-native';
-// import { colors } from '../../../styles/constants';
-// import { User } from '../../types';
+// import { Image, StyleSheet, Text, View } from 'react-native';
+// import { colors } from '../../styles/constants';
+// import { User } from '../types';
 
 // type Props = {
 //   user: User;
@@ -21,7 +21,7 @@
 // });
 
 // export default function UserProfile() {
-//   const profilePic = require('../../../assets/profilepic.png');
+//   const profilePic = require('../../assets/profilepic.png');
 
 //   // API REQUEST - to fetch user information
 //   useEffect(() => {
@@ -32,9 +32,11 @@
 //     };
 //     apiFetch().catch(console.error);
 //   }, []);
+
 //   return (
 //     <View style={styles.container}>
 //       <Image source={profilePic} />
+//       <Text> Hallo Test</Text>
 //     </View>
 //   );
 // }
