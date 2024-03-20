@@ -8,17 +8,50 @@ export type User = {
   lastName: string;
 };
 
-export const getUsers = async () => {
-  const users = await sql<User[]>`
+type UserWithPasswordHash = User & {
+  passwordHash: string;
+};
+
+export const getUserBySessionToken = async (token: string) => {
+  const [user] = await sql<{ id: number; email: string; csrfSecret: string }[]>`
+    SELECT
+      users.id,
+      users.email,
+      sessions.csrf_secret
+    FROM
+      users
+    INNER JOIN
+      sessions ON (
+        sessions.token = ${token} AND
+        sessions.user_id = users.id AND
+        sessions.expiry_timestamp > now()
+      )
+  `;
+  return user;
+};
+
+export const getUserByUsernameWithPasswordHash = async (email: string) => {
+  const [user] = await sql<UserWithPasswordHash[]>`
     SELECT
       *
     FROM
       users
-    ORDER BY
-      id
+    WHERE
+      email = ${email}
   `;
+  return user;
+};
 
-  return users;
+export const getUserByEmail = async (email: string) => {
+  const [user] = await sql<User[]>`
+    SELECT
+      *
+    FROM
+      users
+    WHERE
+      email = ${email}
+  `;
+  return user;
 };
 
 export const createUser = async (
@@ -41,17 +74,5 @@ export const createUser = async (
         id,
         email
     `;
-  return user;
-};
-
-export const getUserByEmail = async (email: string) => {
-  const [user] = await sql<User[]>`
-    SELECT
-      *
-    FROM
-      users
-    WHERE
-      email = ${email}
-  `;
   return user;
 };

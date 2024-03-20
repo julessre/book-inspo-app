@@ -115,7 +115,7 @@ export default function Login() {
       }
 
       if (response.ok) {
-        router.navigate('../ProfileScreen');
+        router.navigate('../../ProfileScreen');
 
         console.log('login is working');
       }

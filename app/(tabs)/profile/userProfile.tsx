@@ -1,4 +1,4 @@
-// import React from 'react';
+// import React, { useEffect } from 'react';
 // import { Image, StyleSheet, View } from 'react-native';
 // import { colors } from '../../../styles/constants';
 // import { User } from '../../types';
@@ -20,9 +20,18 @@
 //   },
 // });
 
-// export default function userProfile(Props) {
+// export default function UserProfile() {
 //   const profilePic = require('../../../assets/profilepic.png');
 
+//   // API REQUEST - to fetch user information
+//   useEffect(() => {
+//     const apiFetch = async () => {
+//       const response = await fetch(`/api/profile`).catch(console.error);
+//       const data = await response.json();
+//       console.log('fetched profile data:', data);
+//     };
+//     apiFetch().catch(console.error);
+//   }, []);
 //   return (
 //     <View style={styles.container}>
 //       <Image source={profilePic} />
