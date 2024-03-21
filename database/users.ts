@@ -17,18 +17,18 @@ type Token = {
   expiration: string;
 };
 
-export const getUserBySessionToken = async (token: string) => {
-  const [user] = await sql<{ id: number; email: string }[]>`
+export const getUser = async (token: string) => {
+  const [user] = await sql<Pick<User, 'email'>[]>`
     SELECT
-      users.id,
       users.email,
+      users.firstName,
+      users.lastName
     FROM
       users
-    INNER JOIN
-      sessions ON (
-        sessions.token = ${token} AND
-        sessions.user_id = users.id AND
-        sessions.expiry_timestamp > now()
+      INNER JOIN sessions ON (
+        sessions.token = ${token}
+        AND sessions.user_id = users.id
+        AND sessions.expiry_timestamp > now()
       )
   `;
   return user;

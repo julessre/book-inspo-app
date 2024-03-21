@@ -56,7 +56,6 @@ const screenOptions = ({ route }) => ({
 export default function TabNavigator() {
   return (
     <Tab.Navigator
-      initialRouteName={homeName}
       screenOptions={screenOptions}
       // independent={true}
     >

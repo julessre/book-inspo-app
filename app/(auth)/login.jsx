@@ -1,4 +1,5 @@
-import { router, useNavigation } from 'expo-router';
+import { useRoute } from '@react-navigation/native';
+import { router, useNavigation, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   Keyboard,
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
 
 export default function Login() {
   // const { logIn, lastError } = useAuth();
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [passwordHash, setPasswordHash] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -95,7 +97,7 @@ export default function Login() {
 
     // input validation
     const validatedLogin = loginSchema.safeParse(userData);
-    console.log('validated Login:', validatedLogin);
+    // console.log('validated Login:', validatedLogin);
     if (!validatedLogin.success) {
       setErrorMessage('E-Mail or password invalid');
       setError(true);
@@ -115,7 +117,7 @@ export default function Login() {
       }
 
       if (response.ok) {
-        router.navigate('../../userProfile');
+        router.push('../ProfileScreen');
 
         console.log('login is working');
       }
