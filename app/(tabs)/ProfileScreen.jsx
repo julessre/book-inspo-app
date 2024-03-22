@@ -22,13 +22,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  containerInfo: {
+    flex: 5,
+    paddingTop: 90,
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+  profilePic: {
+    padding: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  containerButton: {
+    flex: 1,
+  },
+  textLoading: {
+    fontSize: 25,
+    color: colors.text,
+    fontFamily: 'Raleway-Medium',
+    paddingTop: 20,
+  },
   text: {
     fontSize: 25,
     color: colors.text,
     fontFamily: 'Raleway-Bold',
     paddingTop: 20,
-    paddingBottom: 30,
+    borderBottomWidth: 5,
+    borderBottomColor: colors.primaryColor,
+    paddingBottom: 10,
+    textAlign: 'center',
   },
+  nameContainer: {
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  line: {
+    borderTopColor: colors.primaryColor,
+    borderTopWidth: 2,
+    paddingLeft: 90,
+    paddingRight: 90,
+  },
+
   button: {
     alignItems: 'center',
     alignSelf: 'center',
@@ -79,7 +113,7 @@ export default function ProfileScreen() {
   if (!user) {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Still loading..</Text>
+        <Text style={styles.textLoading}>Still loading..</Text>
       </View>
     );
   }
@@ -95,23 +129,32 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <Image source={profilePic} />
-      <Text style={styles.text}>
-        {user.user.firstname} {user.user.lastname}
-      </Text>
-      <Pressable
-        accessibilityLabel="logout here"
-        onPress={logout}
-        activateOpacity={0.3}
-        style={({ pressed }) => [
-          styles.button,
-          {
-            backgroundColor: pressed ? '#fff' : colors.primaryColor,
-          },
-        ]}
-      >
-        <Text style={styles.buttonText}>Logout</Text>
-      </Pressable>
+      <View style={styles.containerInfo}>
+        <View style={styles.nameContainer}>
+          <View style={styles.profilePic}>
+            <Image source={profilePic} />
+          </View>
+          <Text style={styles.text}>
+            {user.user.firstname} {user.user.lastname}
+          </Text>
+        </View>
+        <View style={styles.line}></View>
+      </View>
+      <View style={styles.containerButton}>
+        <Pressable
+          accessibilityLabel="logout here"
+          onPress={logout}
+          activateOpacity={0.3}
+          style={({ pressed }) => [
+            styles.button,
+            {
+              backgroundColor: pressed ? '#fff' : colors.primaryColor,
+            },
+          ]}
+        >
+          <Text style={styles.buttonText}>Logout</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
