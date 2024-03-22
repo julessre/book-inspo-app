@@ -1,9 +1,9 @@
 import {
-  Redirect,
-  useFocusEffect,
-  useNavigation,
-  useRouter,
-} from 'expo-router';
+  CommonActions,
+  StackActions,
+  TabActions,
+} from '@react-navigation/native';
+import { Redirect, router, useFocusEffect, useNavigation } from 'expo-router';
 // import { router } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -23,8 +23,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 20,
+    fontSize: 25,
     color: colors.text,
+    fontFamily: 'Raleway-Bold',
+    paddingTop: 20,
+    paddingBottom: 30,
   },
   button: {
     alignItems: 'center',
@@ -49,7 +52,8 @@ const styles = StyleSheet.create({
 
 export default function ProfileScreen() {
   const profilePic = require('../../assets/profilepic.png');
-  const router = useRouter();
+  const navigation = useNavigation();
+  // const router = useRouter();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -74,8 +78,8 @@ export default function ProfileScreen() {
   // loading screen
   if (!user) {
     return (
-      <View>
-        <Text>Still loading</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>Still loading..</Text>
       </View>
     );
   }
@@ -85,14 +89,14 @@ export default function ProfileScreen() {
     const data = await response.json();
     if (data.success) {
       setUser(null);
-      router.replace('/login');
     }
+    navigation.navigate('Home');
   };
 
   return (
     <View style={styles.container}>
       <Image source={profilePic} />
-      <Text>
+      <Text style={styles.text}>
         {user.user.firstname} {user.user.lastname}
       </Text>
       <Pressable

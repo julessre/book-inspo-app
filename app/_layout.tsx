@@ -32,6 +32,7 @@ export default function HomeLayout() {
   if (!fontsLoaded) {
     return null;
   }
+
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Navigator

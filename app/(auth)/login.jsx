@@ -117,7 +117,7 @@ export default function Login() {
       }
 
       if (response.ok) {
-        router.push('../ProfileScreen');
+        router.push('/ProfileScreen');
 
         console.log('login is working');
       }
