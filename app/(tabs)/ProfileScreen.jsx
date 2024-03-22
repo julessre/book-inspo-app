@@ -6,7 +6,15 @@ import {
 import { Redirect, router, useFocusEffect, useNavigation } from 'expo-router';
 // import { router } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  DevSettings,
+  Image,
+  NativeModules,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { colors } from '../../styles/constants';
 // import checkLoginStatus from '../../util/checkloginstatus';
 import { User } from '../types';
@@ -29,9 +37,11 @@ const styles = StyleSheet.create({
     paddingRight: 30,
   },
   profilePic: {
-    padding: 20,
     paddingLeft: 20,
     paddingRight: 20,
+    alignItems: 'center',
+    alignSelf: 'center',
+    paddingBottom: 20,
   },
   containerButton: {
     flex: 1,
@@ -39,7 +49,7 @@ const styles = StyleSheet.create({
   textLoading: {
     fontSize: 25,
     color: colors.text,
-    fontFamily: 'Raleway-Medium',
+    fontFamily: 'Raleway-Italic',
     paddingTop: 20,
   },
   text: {
@@ -125,15 +135,16 @@ export default function ProfileScreen() {
       setUser(null);
     }
     navigation.navigate('Home');
+    DevSettings.reload();
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.containerInfo}>
+        <View style={styles.profilePic}>
+          <Image source={profilePic} />
+        </View>
         <View style={styles.nameContainer}>
-          <View style={styles.profilePic}>
-            <Image source={profilePic} />
-          </View>
           <Text style={styles.text}>
             {user.user.firstname} {user.user.lastname}
           </Text>

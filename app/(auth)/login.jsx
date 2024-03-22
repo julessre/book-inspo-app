@@ -78,11 +78,22 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
   },
+  backHomeText: {
+    marginTop: 160,
+    backgroundColor: colors.background,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  backbuttonText: {
+    fontSize: 15,
+    color: colors.text,
+    fontFamily: 'Raleway-Italic',
+  },
 });
 
 export default function Login() {
   // const { logIn, lastError } = useAuth();
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [passwordHash, setPasswordHash] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -195,6 +206,23 @@ export default function Login() {
               >
                 <Text>Or register here!</Text>
               </Pressable>
+              <View>
+                <Pressable
+                  accessibilityLabel="Or register here!"
+                  onPress={() => router.push('/HomeScreen')}
+                  activateOpacity={0.3}
+                  style={({ pressed }) => [
+                    styles.backHomeText,
+                    {
+                      backgroundColor: pressed ? '#fff' : colors.background,
+                      borderRadius: 20,
+                      padding: 5,
+                    },
+                  ]}
+                >
+                  <Text style={styles.backbuttonText}>← back to books</Text>
+                </Pressable>
+              </View>
             </View>
           </View>
         </TouchableWithoutFeedback>
