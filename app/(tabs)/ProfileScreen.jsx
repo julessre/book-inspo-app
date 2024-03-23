@@ -1,23 +1,15 @@
-import {
-  CommonActions,
-  StackActions,
-  TabActions,
-} from '@react-navigation/native';
-import { Redirect, router, useFocusEffect, useNavigation } from 'expo-router';
-// import { router } from 'expo-router';
-import React, { useCallback, useEffect, useState } from 'react';
+import { Redirect, useNavigation } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import {
   DevSettings,
   Image,
-  NativeModules,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+import ProgressBar from 'react-native-progress/Bar';
 import { colors } from '../../styles/constants';
-// import checkLoginStatus from '../../util/checkloginstatus';
-import { User } from '../types';
 
 // type Props = {
 //   user: User;
@@ -31,8 +23,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   containerInfo: {
-    flex: 5,
-    paddingTop: 90,
+    // flex: 1,
+    paddingTop: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+  containerProgress: {
+    // flex: 1,
     paddingLeft: 30,
     paddingRight: 30,
   },
@@ -41,26 +38,33 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     alignItems: 'center',
     alignSelf: 'center',
-    paddingBottom: 20,
+    paddingBottom: 10,
   },
-  containerButton: {
-    flex: 1,
-  },
+
   textLoading: {
-    fontSize: 25,
+    fontSize: 20,
     color: colors.text,
     fontFamily: 'Raleway-Italic',
     paddingTop: 20,
   },
-  text: {
+  textName: {
     fontSize: 25,
     color: colors.text,
     fontFamily: 'Raleway-Bold',
-    paddingTop: 20,
+    paddingTop: 10,
     borderBottomWidth: 5,
     borderBottomColor: colors.primaryColor,
     paddingBottom: 10,
     textAlign: 'center',
+  },
+  text: {
+    fontSize: 18,
+    color: colors.text,
+    fontFamily: 'Raleway-Medium',
+    paddingTop: 20,
+    borderBottomWidth: 5,
+    borderBottomColor: colors.primaryColor,
+    paddingBottom: 10,
   },
   nameContainer: {
     paddingLeft: 20,
@@ -71,6 +75,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     paddingLeft: 90,
     paddingRight: 90,
+    marginBottom: 10,
   },
 
   button: {
@@ -96,6 +101,7 @@ const styles = StyleSheet.create({
 
 export default function ProfileScreen() {
   const profilePic = require('../../assets/profilepic.png');
+  const chart = require('../../assets/chart.png');
   const navigation = useNavigation();
   // const router = useRouter();
   const [user, setUser] = useState(null);
@@ -145,13 +151,29 @@ export default function ProfileScreen() {
           <Image source={profilePic} />
         </View>
         <View style={styles.nameContainer}>
-          <Text style={styles.text}>
+          <Text style={styles.textName}>
             {user.user.firstname} {user.user.lastname}
           </Text>
         </View>
         <View style={styles.line}></View>
       </View>
-      <View style={styles.containerButton}>
+      <View style={styles.containerProgress}>
+        <Text style={styles.textLoading}>Your progress:</Text>
+        <ProgressBar
+          progress={0.4}
+          width={320}
+          color={colors.primaryColor}
+          backgroundColor={'white'}
+          height={10}
+          borderRadius={10}
+          marginTop={15}
+        />
+        <Text style={styles.text}>
+          You have read 5 out of your 12 favorite books. Keep going!
+        </Text>
+        <Image source={chart} />
+      </View>
+      <View>
         <Pressable
           accessibilityLabel="logout here"
           onPress={logout}

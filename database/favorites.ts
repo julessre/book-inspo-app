@@ -10,6 +10,7 @@ export const getFavorites = async (token: string) => {
       INNER JOIN sessions ON (
         sessions.token = ${token}
         AND favorites.user_id = sessions.user_id
+        AND favorites.book_id = sessions.book_id
         AND sessions.expiry_timestamp > now()
       )
   `;

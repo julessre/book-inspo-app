@@ -25,7 +25,7 @@ export default function HomeScreen() {
       const response = await fetch('/api/books');
       const fetchedBooks = await response.json();
       setBooks(fetchedBooks.showBooks);
-      console.log(fetchedBooks);
+      // console.log(fetchedBooks);
     }
     callApi().catch(console.error);
   }, []);

@@ -21,30 +21,29 @@ const styles = StyleSheet.create({
   },
 });
 
-export default async function FavButton() {
-  async function saveFavorite(sessionToken: string, bookId: number);
-  {
-    const response = await fetch(`/api/favorites`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ bookId }),
-    }).catch(console.error);
+export default function FavButton() {
+  //   async function saveFavorite(sessionToken: string, bookId: number);
+  // {
+  //   const response = await fetch(`/api/favorites`, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ bookId }),
+  //   }).catch(console.error);
 
-    if (!response.ok) {
-      throw new Error('Failed to save favorite book');
-    }
+  //   if (!response.ok) {
+  //     throw new Error('Failed to save favorite book');
+  //   }
 
-    const data = await response.json();
-    console.log('saved favorite:', data);
-    return data;
-  }
-
+  //   const data = await response.json();
+  //   console.log('saved favorite:', data);
+  //   return data;
+  // }
   return (
     <View>
       <Pressable
         // style={styles.button}
         accessibilityLabel="Save this book to my favorites"
-        onPress={saveFavorite}
+        onPress={() => router.push('/HomeScreen')}
         activateOpacity={0.3}
         style={({ pressed }) => [
           styles.button,
