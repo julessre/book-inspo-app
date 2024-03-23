@@ -34,6 +34,23 @@ export const getUser = async (token: string) => {
   return user;
 };
 
+// export const getUserFavorites = async (email: string, token: string) => {
+//   const [user] = await sql<Pick<User, 'email'>[]>`
+//     SELECT
+//       users.email,
+//       users.firstName,
+//       users.lastName
+//     FROM
+//       users
+//       INNER JOIN favorites ON (
+//         favorites.token = ${token}
+//         AND sessions.user_id = users.id
+//         AND sessions.expiry_timestamp > now()
+//       )
+//   `;
+//   return user;
+// };
+
 export const getUserByUsernameWithPasswordHash = async (email: string) => {
   const [user] = await sql<UserWithPasswordHash[]>`
     SELECT

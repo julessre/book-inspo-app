@@ -8,10 +8,10 @@ export type Favorites = {
 
 export async function up(sql: Sql) {
   await sql`
-    CREATE TABLE favorites (
-      id integer PRIMARY key generated always AS identity,
-      users_id integer NOT NULL,
-      books_id integer NOT NULL
+     CREATE TABLE favorites (
+      user_id integer REFERENCES users(id),
+      book_id integer REFERENCES books(id),
+      PRIMARY KEY (user_id, book_id)
     )
   `;
 }
