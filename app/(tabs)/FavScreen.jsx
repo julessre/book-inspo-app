@@ -1,4 +1,4 @@
-import { Redirect } from 'expo-router';
+import { Redirect, router, useNavigation } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   Image,
@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { colors } from '../../styles/constants';
@@ -69,23 +70,26 @@ export default function FavScreen() {
     );
   }
 
-  const firstBookCoverImageLink = userWithBook.user.favorites[0].coverImageLink;
-  const secondBookCoverImageLink =
-    userWithBook.user.favorites[1].coverImageLink;
-  // const thirdBookCoverImageLink = userWithBook.user.favorites[2].coverImageLink;
-
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Cover Images of books</Text>
       <View>
-        <Image
-          source={{ uri: firstBookCoverImageLink }}
-          style={{ width: 120, height: 180 }}
-        />
-        <Image
-          source={{ uri: secondBookCoverImageLink }}
-          style={{ width: 120, height: 180 }}
-        />
+        {userWithBook.user.favorites.map((favorite, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => {
+              router.navigate({
+                pathname: `bookDetails/[id]`,
+                params: { id: favorite.id },
+              });
+            }}
+          >
+            <Image
+              key={index}
+              source={{ uri: favorite.coverImageLink }}
+              style={{ width: 120, height: 180 }}
+            />
+          </TouchableOpacity>
+        ))}
       </View>
     </View>
   );

@@ -10,16 +10,22 @@ Main features are:
 - profile screen: shows the user's profile after logging in
 - login / signup screen: users need to authenticate and authorize to use the features
 
+This app features Stack and Tab Navigation powered by React navigation that allows users to navigate easily within the application.
+
 <h2>Technologies ⚛️ </h2>
 
 - Typescript / Javascript
 - React Native with Expo
 - PostgreSQL
-- Expo Router and Expo API Route
-- <a href="https://www.figma.com/file/TGqqnsSnFT4GQNSfARccEL/Final-project---app?type=design&node-id=12%3A1053&mode=design&t=9d6NaawxutprA8ZX-1">Figma</a> and <a href="https://drawsql.app/teams/jules-team-2/diagrams/final-project">DrawSQL</a> for prototyping
-- React navigation for Tab and Stack Navigation
-- cookie
-- node:crypto to create random session token
+- Expo Router
+- Expo API Route
+- React navigation
+- Node.js
+
+<h3> Prototyping </h3>
+
+- <a href="https://www.figma.com/file/TGqqnsSnFT4GQNSfARccEL/Final-project---app?type=design&node-id=12%3A1053&mode=design&t=9d6NaawxutprA8ZX-1">Figma</a>
+- <a href="https://drawsql.app/teams/jules-team-2/diagrams/final-project">DrawSQL</a>
 
 <h2>Screenshots 📷</h2>
 
