@@ -16,11 +16,11 @@ export const getFavorites = async (token: string) => {
   `;
   return favorites;
 };
-export const getUserFavorites = async (userId: number) => {
-  const favorites = await sql`
-        SELECT b.*
-        FROM favorites f
-        JOIN books b ON f.book_id = b.id
-        WHERE f.user_id = ${userId}`;
-  return favorites;
-};
+// export const getUserFavorites = async (userId: number) => {
+//   const favorites = await sql`
+//         SELECT b.*
+//         FROM favorites f
+//         JOIN books b ON f.book_id = b.id
+//         WHERE f.user_id = ${userId}`;
+//   return favorites;
+// };
