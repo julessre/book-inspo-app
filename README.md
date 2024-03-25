@@ -22,14 +22,14 @@ Main features are:
 - React navigation for Tab and Stack Navigation
 - cookie
 - node:crypto to create random session token
-- expo router for ???
+- expo router for
 
 <h2>Screenshots 📷</h2>
 
 <h3>Final Look </h3>
-<p align="left">
+<!-- <p align="left">
   <img src="./public/images/readme.jpg" width="800" alt="homepage">
-</p>
+</p> -->
 
 <h3>Prototype on Figma</h3>
 
@@ -72,7 +72,7 @@ sudo -u <user name> psql -U <user name> <database name> on Linux
 5. Run application
 
 ```
-pnpm
+pnpm start
 ```
 
-Open Expo Go or Android Studio
+Open Expo Go or Android Studio.
