@@ -1,9 +1,9 @@
 import { Redirect, router, useNavigation } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
+  Dimensions,
   Image,
-  Pressable,
-  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -33,13 +33,26 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.primaryColor,
     paddingBottom: 10,
   },
-  // image: {
-  //   flex: 1,
-  // resizeMode: 'contain',
-  // margin Top: 20,
-  // overflow: 'hidden',
-  // },
+  imageContainer: {
+    flexDirection: 'column',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  imageWrapper: {
+    width: imageWidth,
+  },
+  image: {
+    width: '100%',
+    height: 180,
+    marginBottom: 10,
+  },
 });
+
+const screenWidth = Dimensions.get('window').width;
+const imageWidth = (screenWidth - 20) / 2 - 5;
 
 export default function FavScreen() {
   const [userWithBook, setUserWithBook] = useState(null);
@@ -72,24 +85,27 @@ export default function FavScreen() {
 
   return (
     <View style={styles.container}>
-      <View>
-        {userWithBook.user.favorites.map((favorite, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => {
-              router.navigate({
-                pathname: `bookDetails/[id]`,
-                params: { id: favorite.id },
-              });
-            }}
-          >
-            <Image
+      <View style={styles.imageContainer}>
+        <ScrollView vertical="true" bounces="true">
+          {userWithBook.user.favorites.map((favorite, index) => (
+            <TouchableOpacity
               key={index}
-              source={{ uri: favorite.coverImageLink }}
-              style={{ width: 120, height: 180 }}
-            />
-          </TouchableOpacity>
-        ))}
+              style={styles.imageWrapper}
+              onPress={() => {
+                router.navigate({
+                  pathname: `bookDetails/[id]`,
+                  params: { id: favorite.id },
+                });
+              }}
+            >
+              <Image
+                key={index}
+                source={{ uri: favorite.coverImageLink }}
+                style={{ width: 220, height: 350, marginTop: 30 }}
+              />
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );

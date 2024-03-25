@@ -45,7 +45,10 @@ export default function FavButton(props) {
     const response = await fetch(`/api/favorites`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId: userData.user.id, bookId: props.bookId }),
+      body: JSON.stringify({
+        userId: userData.user.id,
+        bookId: props.bookId,
+      }),
     }).catch(console.error);
 
     const favorites = await response.json();

@@ -1,7 +1,11 @@
 import cookie from 'cookie';
 import { ExpoRequest, ExpoResponse } from 'expo-router/server';
 import { z } from 'zod';
-import { createFavorite, getFavoritesByUser } from '../../database/favorites';
+import {
+  checkExistingFavorite,
+  createFavorite,
+  getFavoritesByUser,
+} from '../../database/favorites';
 
 const favoritesSchema = z.object({
   userId: z.number(),
@@ -9,7 +13,6 @@ const favoritesSchema = z.object({
 });
 
 export async function POST(request: ExpoRequest) {
-  // 1. get the session token from the cookie
   console.log('API Running Favorites', request.headers);
 
   const cookies = cookie.parse(request.headers.get('cookie') || '');
@@ -28,13 +31,19 @@ export async function POST(request: ExpoRequest) {
     );
   }
 
+  const existingFavorite =
+    token &&
+    (await checkExistingFavorite(result.data.userId, result.data.bookId));
+  if (existingFavorite) {
+    return ExpoResponse.json({ message: 'Book already saved as favorite' });
+  }
+
   const userFavorites =
     token && (await createFavorite(token, result.data.bookId));
 
   if (!userFavorites) {
     return ExpoResponse.json({ error: 'user favorites creation failed' });
   }
-  // 4. return the user profile
 
   return ExpoResponse.json({ favorites: userFavorites });
 }

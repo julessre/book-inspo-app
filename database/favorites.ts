@@ -36,6 +36,21 @@ export const getFavoritesByUser = async (token: string) => {
   return userWithFavorites;
 };
 
+export const checkExistingFavorite = async (
+  userId: number,
+  bookId: number,
+) => {
+  const existingFavorites = await sql`
+    SELECT
+    *
+    FROM
+    favorites
+    WHERE user_id = ${userId} AND book_id = ${bookId}
+  `;
+
+  return existingFavorites.length > 0;
+};
+
 export const createFavorite = async (token: string, bookId: number) => {
   const [favorite] = await sql<Favorites[]>`
     INSERT INTO

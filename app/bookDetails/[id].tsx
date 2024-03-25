@@ -104,7 +104,7 @@ export default function BookDetailsPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-      });
+      }).catch(console.error);
       const fetchedBook = await response.json();
       setSingleBook(fetchedBook.bookDetail);
       console.log(fetchedBook);
