@@ -1,7 +1,7 @@
 import cookie from 'cookie';
 import { ExpoRequest, ExpoResponse } from 'expo-router/server';
 import { z } from 'zod';
-import { createFavorite, getFavorites } from '../../database/favorites';
+import { createFavorite, getFavoritesByUser } from '../../database/favorites';
 
 const favoritesSchema = z.object({
   userId: z.number(),
@@ -39,4 +39,19 @@ export async function POST(request: ExpoRequest) {
   return ExpoResponse.json({ favorites: userFavorites });
 }
 
-export async function GET(request: ExpoRequest) {}
+export async function GET(request: ExpoRequest) {
+  console.log('API Running GET favs', request.headers);
+
+  const cookies = cookie.parse(request.headers.get('cookie') || '');
+  const token = cookies.sessionToken;
+  console.log('sessionToken:', token);
+
+  const userWithBooks = token && (await getFavoritesByUser(token));
+  console.log('userWithBooks Variable:', userWithBooks);
+
+  if (!userWithBooks) {
+    return ExpoResponse.json({ error: 'user with saved books not found' });
+  }
+
+  return ExpoResponse.json({ user: userWithBooks });
+}

@@ -56,7 +56,7 @@ export async function POST(request: Request) {
   // 4. create a session
   // - create the token
   const token = crypto.randomBytes(80).toString('base64');
-  console.log(token);
+  // console.log(token);
 
   // - create the session
   const session = await createSession(userWithPasswordHash.id, token);
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
 
   // add the new header
   headers.set('Set-Cookie', 'a=1;');
-  console.log('Headers setting', headers);
+  // console.log('Headers setting', headers);
 
   return ExpoResponse.json(
     {

@@ -110,14 +110,14 @@ export default function ProfileScreen() {
     const apiFetch = async () => {
       const response = await fetch(`/api/profile`).catch(console.error);
       const userData = await response.json();
-      console.log('fetched profile data:', userData);
+      // console.log('fetched profile data:', userData);
       if (userData) {
         setUser(userData);
       }
     };
     apiFetch().catch(console.error);
   }, []);
-  console.log('set user:', user);
+  // console.log('set user:', user);
 
   // if (user !== null && user.error)
   // if (user && user.error)

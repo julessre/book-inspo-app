@@ -1,20 +1,39 @@
-import { Favorites } from '../migrations/00007-createTableFavorites';
+import {
+  Favorites,
+  userWithBooks,
+} from '../migrations/00007-createTableFavorites';
 import { sql } from './connect';
 
-export const getFavorites = async (token: string) => {
-  const favorites = await sql<Favorites[]>`
+export const getFavoritesByUser = async (token: string) => {
+  const [userWithFavorites] = await sql<userWithBooks[]>`
     SELECT
-      favorites.*
-    FROM
-      favorites
-      INNER JOIN sessions ON (
+    users.id AS user_id,
+    users.email AS user_email,
+    users.firstName AS user_first_name,
+    users.lastName AS user_last_name,
+    -- Return empty array instead of [null] if no book is found
+      coalesce(
+        json_agg(books.*) FILTER (
+          WHERE
+          books.id IS NOT NULL
+        ),
+        '[]'
+      ) AS favorites
+      FROM
+      users
+       LEFT JOIN favorites ON users.id = favorites.user_id
+       LEFT JOIN books ON books.id = favorites.book_id
+         INNER JOIN sessions ON (
         sessions.token = ${token}
-        AND favorites.user_id = sessions.user_id
-        AND favorites.book_id = sessions.book_id
+        AND users.id = sessions.user_id
         AND sessions.expiry_timestamp > now()
       )
-  `;
-  return favorites;
+       WHERE
+       token = ${token}
+      GROUP BY
+      users.id
+      `;
+  return userWithFavorites;
 };
 
 export const createFavorite = async (token: string, bookId: number) => {

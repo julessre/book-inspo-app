@@ -15,14 +15,11 @@ Main features are:
 - Typescript / Javascript
 - React Native with Expo
 - PostgreSQL
-
-<h3>Libraries and Tools</h3>
-
+- Expo Router and Expo API Route
 - <a href="https://www.figma.com/file/TGqqnsSnFT4GQNSfARccEL/Final-project---app?type=design&node-id=12%3A1053&mode=design&t=9d6NaawxutprA8ZX-1">Figma</a> and <a href="https://drawsql.app/teams/jules-team-2/diagrams/final-project">DrawSQL</a> for prototyping
 - React navigation for Tab and Stack Navigation
 - cookie
 - node:crypto to create random session token
-- expo router for
 
 <h2>Screenshots 📷</h2>
 
