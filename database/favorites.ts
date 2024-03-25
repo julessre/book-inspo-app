@@ -16,11 +16,23 @@ export const getFavorites = async (token: string) => {
   `;
   return favorites;
 };
-// export const getUserFavorites = async (userId: number) => {
-//   const favorites = await sql`
-//         SELECT b.*
-//         FROM favorites f
-//         JOIN books b ON f.book_id = b.id
-//         WHERE f.user_id = ${userId}`;
-//   return favorites;
-// };
+
+export const createFavorite = async (token: string, bookId: number) => {
+  const [favorite] = await sql<Favorites[]>`
+    INSERT INTO
+      favorites (user_id, book_id) (
+      SELECT
+      user_id,
+      ${bookId}
+      FROM
+      sessions
+      WHERE
+       token = ${token}
+            AND sessions.expiry_timestamp > now()
+      )
+      RETURNING
+        favorites.*
+
+  `;
+  return favorite;
+};

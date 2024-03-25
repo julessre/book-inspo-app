@@ -20,6 +20,7 @@ type Token = {
 export const getUser = async (token: string) => {
   const [user] = await sql<Pick<User, 'email'>[]>`
     SELECT
+    users.id,
       users.email,
       users.firstName,
       users.lastName

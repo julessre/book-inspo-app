@@ -1,24 +1,42 @@
 import cookie from 'cookie';
 import { ExpoRequest, ExpoResponse } from 'expo-router/server';
-import { getFavorites } from '../../database/favorites';
+import { z } from 'zod';
+import { createFavorite, getFavorites } from '../../database/favorites';
 
-export async function GET(request: ExpoRequest) {
+const favoritesSchema = z.object({
+  userId: z.number(),
+  bookId: z.number(),
+});
+
+export async function POST(request: ExpoRequest) {
   // 1. get the session token from the cookie
-  console.log('API Running', request.headers);
+  console.log('API Running Favorites', request.headers);
 
-  // const cookies = request.headers.get('cookie');
   const cookies = cookie.parse(request.headers.get('cookie') || '');
   const token = cookies.sessionToken;
   console.log('sessionToken:', token);
 
-  // 2. validate that session
-  // 3. get the user profile matching the session
-  const userFavorites = token && (await getFavorites(token));
+  const body = await request.json();
+  const result = favoritesSchema.safeParse(body);
+  console.log('result in api', result);
+  if (!result.success) {
+    return ExpoResponse.json(
+      { errors: [{ message: 'Save favorite not successful' }] },
+      {
+        status: 400,
+      },
+    );
+  }
+
+  const userFavorites =
+    token && (await createFavorite(token, result.data.bookId));
 
   if (!userFavorites) {
-    return ExpoResponse.json({ error: 'user favorites not found' });
+    return ExpoResponse.json({ error: 'user favorites creation failed' });
   }
   // 4. return the user profile
 
   return ExpoResponse.json({ favorites: userFavorites });
 }
+
+export async function GET(request: ExpoRequest) {}

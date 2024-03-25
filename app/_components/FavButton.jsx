@@ -1,5 +1,5 @@
-import { router } from 'expo-router';
-import React from 'react';
+import { Redirect, router } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../styles/constants';
 
@@ -21,22 +21,37 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function FavButton() {
+export default function FavButton(props) {
+  const [error, setError] = useState('');
+
+  if (error) {
+    // console.log('user should redirect to login', error);
+    return <Redirect href="/login" />;
+  }
+  // console.log('error:', error);
+
   async function saveFavorite() {
+    // check if user is logged in
+    const userResponse = await fetch(`/api/profile`).catch(console.error);
+    const userData = await userResponse.json();
+    console.log('user Data from save Fav:', userData);
+
+    if (userData.error) {
+      // console.log('user should redirect');
+      setError(userData.error);
+    }
+    console.log(props.bookId);
+
     const response = await fetch(`/api/favorites`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user_id, book_id }),
+      body: JSON.stringify({ userId: userData.user.id, bookId: props.bookId }),
     }).catch(console.error);
 
-    if (!response.ok) {
-      throw new Error('Failed to save favorite book');
-    }
-
-    const data = await response.json();
-    console.log('saved favorite:', data);
-    return data;
+    const favorites = await response.json();
+    console.log('data from favorite button:', favorites);
   }
+
   return (
     <View>
       <Pressable

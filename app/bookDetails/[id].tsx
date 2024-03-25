@@ -2,6 +2,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { isPropertyAccessOrQualifiedName } from 'typescript';
 import { colors } from '../../styles/constants';
 import FavButton from '../_components/FavButton';
 
@@ -156,7 +157,7 @@ export default function BookDetailsPage() {
             <Text style={styles.text}>{singleBook.description} </Text>
           </View>
           <View>
-            <FavButton />
+            <FavButton bookId={singleBook.id} />
           </View>
         </>
       )}
