@@ -30,9 +30,9 @@ This app features Stack and Tab Navigation powered by React navigation that allo
 <h2>Screenshots 📷</h2>
 
 <h3>Final Look </h3>
-<!-- <p align="left">
-  <img src="./public/images/readme.jpg" width="800" alt="homepage">
-</p> -->
+<p align="left">
+  <img src="./assets/screenshots.png" width="800" alt="screenshots of app">
+</p>
 
 <h3>Prototype on Figma</h3>
 

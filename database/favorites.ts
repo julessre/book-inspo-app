@@ -36,10 +36,7 @@ export const getFavoritesByUser = async (token: string) => {
   return userWithFavorites;
 };
 
-export const checkExistingFavorite = async (
-  userId: number,
-  bookId: number,
-) => {
+export const checkExistingFavorite = async (userId: number, bookId: number) => {
   const existingFavorites = await sql`
     SELECT
     *

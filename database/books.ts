@@ -10,7 +10,7 @@ export const getBooks = async () => {
     -- ORDER BY
     --   id
     WHERE
-      id in (30, 31, 32)
+      id in (43, 44, 49)
         `;
 
   return books;
