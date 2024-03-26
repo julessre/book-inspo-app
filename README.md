@@ -72,7 +72,13 @@ psql -U <user name> <database name> on windows and macOS
 sudo -u <user name> psql -U <user name> <database name> on Linux
 ```
 
-5. Run application
+5. Migrate database and run:
+
+```
+pnpm migrate up
+```
+
+6. Run application
 
 ```
 pnpm start
