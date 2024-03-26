@@ -84,4 +84,4 @@ pnpm migrate up
 pnpm start
 ```
 
-Open Expo Go or Android Studio.
+7. Open Expo Go or Android Studio.
