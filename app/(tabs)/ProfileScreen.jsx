@@ -95,10 +95,6 @@ const styles = StyleSheet.create({
   },
 });
 
-//  LOG  fetched profile data: {"error": "user not found"}
-//  LOG  set user: {"error": "user not found"}
-//  LOG  set user: {"error": "user not found"}
-
 export default function ProfileScreen() {
   const profilePic = require('../../assets/profilepic.png');
   const chart = require('../../assets/chart.png');
@@ -120,7 +116,6 @@ export default function ProfileScreen() {
   // console.log('set user:', user);
 
   // if (user !== null && user.error)
-  // if (user && user.error)
   if (user?.error) {
     return <Redirect href="/login" />;
   }
