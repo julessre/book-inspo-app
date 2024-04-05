@@ -4,8 +4,6 @@ import { ExpoRequest, ExpoResponse } from 'expo-router/server';
 import { deleteSession } from '../../database/sessions';
 import { getUser } from '../../database/users';
 
-// import cookie from 'cookie';
-
 export async function GET(request: ExpoRequest) {
   // 1. Get the session token from the cookie
   const cookies = cookie.parse(request.headers.get('cookie') || '');

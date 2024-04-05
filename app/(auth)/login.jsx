@@ -16,8 +16,6 @@ import {
 import { z } from 'zod';
 import { colors } from '../../styles/constants';
 
-// import { useAuth } from '../AuthContext';
-
 // change min to larger number after testing!!!
 const loginSchema = z.object({
   email: z.string().email(),
@@ -93,12 +91,10 @@ const styles = StyleSheet.create({
 });
 
 export default function Login() {
-  // const { logIn, lastError } = useAuth();
   const [email, setEmail] = useState('');
   const [passwordHash, setPasswordHash] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [error, setError] = useState('');
-  const navigation = useNavigation();
 
   async function handleLogin() {
     const userData = {

@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
-import { ExpoRequest, ExpoResponse } from 'expo-router/server';
+import { ExpoResponse } from 'expo-router/server';
 import { z } from 'zod';
 import { createSession } from '../../database/sessions';
 import { getUserByEmail } from '../../database/users';

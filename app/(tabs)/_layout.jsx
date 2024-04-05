@@ -7,13 +7,6 @@ import FavScreen from './FavScreen';
 import HomeScreen from './HomeScreen';
 import ProfileScreen from './ProfileScreen';
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: colors.background,
-//   },
-// });
-
 // Screen names
 const homeName = 'Home';
 const favName = 'Favorites';
@@ -55,10 +48,7 @@ const screenOptions = ({ route }) => ({
 
 export default function TabNavigator() {
   return (
-    <Tab.Navigator
-      screenOptions={screenOptions}
-      // independent={true}
-    >
+    <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name={homeName} component={HomeScreen} headerShown={false} />
       <Tab.Screen name={favName} component={FavScreen} headerShown={false} />
       <Tab.Screen
@@ -67,7 +57,5 @@ export default function TabNavigator() {
         headerShown={false}
       />
     </Tab.Navigator>
-
-    // </SafeAreaView>
   );
 }

@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       { status: 403 },
     );
   }
-  // // 4. Hash the plain password from the user
+  // 4. Hash the plain password from the user
   // const passwordHash = await bcrypt.hash(result.data.passwordHash, 12);
 
   // 5. Save the user information with the hashed password in the database
@@ -70,23 +70,6 @@ export async function POST(request: Request) {
       },
     );
   }
-
-  // 8. Send the new cookie in the headers
-  // cookies().set({
-  //   name: 'sessionToken',
-  //   value: session.token,
-  //   httpOnly: true,
-  //   path: '/',
-  //   secure: process.env.NODE_ENV === 'production',
-  //   maxAge: 60 * 60 * 24, // Expires in 24 hours,
-  //   sameSite: 'lax',
-  // });
-
-  // cookies().set({
-  //   name: 'sessionToken',
-  //   value: session.token,
-  //   ...secureCookieOptions,
-  // });
 
   return ExpoResponse.json({
     user: newUser,

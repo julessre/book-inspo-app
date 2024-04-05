@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     flex: 2,
     resizeMode: 'contain',
     marginTop: 20,
-    // overflow: 'hidden',
   },
   descriptionContainer: {
     marginTop: 50,

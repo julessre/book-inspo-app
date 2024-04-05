@@ -99,7 +99,6 @@ export default function ProfileScreen() {
   const profilePic = require('../../assets/profilepic.png');
   const chart = require('../../assets/chart.png');
   const navigation = useNavigation();
-  // const router = useRouter();
   const [user, setUser] = useState(null);
 
   useEffect(() => {

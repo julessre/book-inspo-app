@@ -1,15 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
-import { Slot } from 'expo-router';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { colors } from '../styles/constants';
 import Login from './(auth)/login';
 import SignUp from './(auth)/signup';
 import TabNavigator from './(tabs)/_layout';
-import HomeScreen from './(tabs)/HomeScreen';
 import BookDetailsPage from './bookDetails/[id]';
-
-// import UserProfile from './profile/userProfile';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Stack = createNativeStackNavigator();
